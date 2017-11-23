@@ -1,0 +1,15 @@
+{
+  "description": "When you press ctrl+c with no character selected, save the page title and URL on the clipboard.",
+  "manifest_version": 2,
+  "name": "TitleUrlCopy",
+  "version": "1.0",
+  "homepage_url": "https://github.com/takedajs/TitleUrlCopy",
+  "icons": {
+    "48": "icons/title_url_copy_60.png"
+  },
+
+  "content_scripts": [{
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"]
+  }]
+}
