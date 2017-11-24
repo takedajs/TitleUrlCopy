@@ -2,7 +2,7 @@
 TitleUrlCopy::Add-ons for Firefox
 https://addons.mozilla.org/ja/firefox/addon/titleurlcopy/  
 
-文字を選択していない状態でctrl+c (mac) を押下した時、サイトのタイトルとURLをクリップボードに保存します。
+文字を選択していない状態でcommand+c (mac) を押下した時、サイトのタイトルとURLをクリップボードに保存します。
 
 # 利用例
 
