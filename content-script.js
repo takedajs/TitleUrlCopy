@@ -14,7 +14,7 @@ document.addEventListener('copy', function(e){
 
     // 文字を選択していない場合
     if (select_word === "" && form_select_word === "") {
-        e.clipboardData.setData("text/plain", document.title + "\n" + document.URL);
+        e.clipboardData.setData("text/plain", document.title + "\r\n" + document.URL);
         e.preventDefault();
     }
 });
