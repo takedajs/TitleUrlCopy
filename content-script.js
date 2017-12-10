@@ -14,7 +14,17 @@ document.addEventListener('copy', function(e){
 
     // 文字を選択していない場合
     if (select_word === "" && form_select_word === "") {
-        e.clipboardData.setData("text/plain", document.title + "\r\n" + document.URL);
+
+        var ua = window.navigator.userAgent.toLowerCase();
+        var is_mac = (ua.indexOf("mac") > -1);
+
+        if (is_mac) {
+            var new_line_word = "\n";
+        } else {
+            var new_line_word = "\r\n";
+        }
+
+        e.clipboardData.setData("text/plain", document.title + new_line_word + document.URL);
         e.preventDefault();
     }
 });
