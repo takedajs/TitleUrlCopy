@@ -8,6 +8,15 @@
     "48": "icons/title_url_copy_60.png"
   },
 
+  "permissions": [
+    "storage"
+  ],
+
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
+  },
+
   "content_scripts": [{
       "matches": ["<all_urls>"],
       "js": ["content-script.js"]
