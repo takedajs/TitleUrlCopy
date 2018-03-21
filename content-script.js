@@ -1,4 +1,16 @@
+
+window.setInterval(getCheckCopy,1000)
+
+var checkCopy = "";
+//オプションで設定した情報を取得
+function getCheckCopy(){
+    browser.storage.local.get('checkCopy', function(res) {
+        checkCopy = res.checkCopy;
+    });
+}
+
 document.addEventListener('copy', function(e){
+
     // 選択している文字を取得(フォームの選択文字は取得できない)
     var select_word = window.getSelection().toString();
 
@@ -24,7 +36,15 @@ document.addEventListener('copy', function(e){
             var new_line_word = "\r\n";
         }
 
-        e.clipboardData.setData("text/plain", document.title + new_line_word + document.URL);
+        //オプションで選択した取得条件に合わせてコピーするものを変える
+        if (checkCopy == "urlOnly") {
+            e.clipboardData.setData("text/plain", document.URL);
+        } else if (checkCopy == "titleOnly") {
+            e.clipboardData.setData("text/plain", document.title);
+        } else {
+            e.clipboardData.setData("text/plain", document.title + new_line_word + document.URL);
+        }
+
         e.preventDefault();
     }
 });
