@@ -12,7 +12,7 @@ document.getElementById("copy").onchange = function(){
         }
     }
 
-    //チェックした要素をストレージ格納
+    //チェックした要素をストレージに格納
     browser.storage.local.set({
         'checkCopy': checkedCopy
     });
