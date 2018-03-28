@@ -9,8 +9,28 @@ function getCheckCopy(){
     });
 }
 
-document.addEventListener('copy', function(e){
+var isKeyPush = [];
+document.onkeydown = keyDown;
+document.onkeyup = keyUp;
 
+var isAllTabs = false;
+
+function keyDown(e) {
+
+    isKeyPush[e.key] = true;
+
+    if (isKeyPush["x"] && isKeyPush["c"]) {
+        console.log(22222);
+        isAllTabs = true;
+    }
+}
+
+function keyUp(e) {
+    console.log(33333);
+    isKeyPush[e.key] = false;
+}
+
+document.addEventListener('copy', function(e){
     // 選択している文字を取得(フォームの選択文字は取得できない)
     var select_word = window.getSelection().toString();
 
