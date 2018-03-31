@@ -1,6 +1,5 @@
-//ラジオボタンを変更した時に実行
+//コピー情報のラジオボタンを変更した時に実行
 document.getElementById("copy").onchange = function(){
-
     var copy = document.getElementsByName("copy");
 
     var checkedCopy = "";
@@ -21,4 +20,29 @@ document.getElementById("copy").onchange = function(){
 //ストレージに格納されている情報をラジオボタンに反映
 browser.storage.local.get('checkCopy', function(res) {
     document.getElementById(res.checkCopy).checked = true;
+});
+
+
+//全タグのラジオボタンを変更した時に実行
+document.getElementById("allTag").onchange = function(){
+    var allTag = document.getElementsByName("allTag");
+
+    var checkedAllTag = "";
+    for (var i = 0; i < allTag.length; i++) {
+        //チェックした値を取得
+        if (allTag[i].checked) {
+            checkedAllTag = allTag[i].value;
+            break;
+        }
+    }
+
+    //チェックした要素をストレージに格納
+    browser.storage.local.set({
+        'checkAllTag': checkedAllTag
+    });
+}
+
+//ストレージに格納されている情報をラジオボタンに反映
+browser.storage.local.get('checkAllTag', function(res) {
+    document.getElementById(res.checkAllTag).checked = true;
 });
