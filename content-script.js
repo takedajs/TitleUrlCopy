@@ -1,5 +1,6 @@
 
-window.setInterval(getCheckCopy,1000)
+window.setInterval(getCheckCopy,1000);
+window.setInterval(getTitleUrls,1000);
 
 var checkCopy = "";
 //オプションで設定した情報を取得
@@ -9,25 +10,21 @@ function getCheckCopy(){
     });
 }
 
-var isKeyPush = [];
-document.onkeydown = keyDown;
-document.onkeyup = keyUp;
-
-var isAllTabs = false;
-
-function keyDown(e) {
-
-    isKeyPush[e.key] = true;
-
-    if (isKeyPush["x"] && isKeyPush["c"]) {
-        console.log(22222);
-        isAllTabs = true;
-    }
+var titleUrls = "";
+//全タブのタイトルとURLを取得
+function getTitleUrls() {
+    browser.storage.local.get('titleUrls', function(res) {
+        titleUrls = res.titleUrls;
+    });
 }
 
-function keyUp(e) {
-    console.log(33333);
-    isKeyPush[e.key] = false;
+document.onkeydown = keyDown;
+var isAllTags = false;
+
+function keyDown(e) {
+    if (e.key == "x") {
+        isAllTags = true;
+    }
 }
 
 document.addEventListener('copy', function(e){
@@ -56,15 +53,40 @@ document.addEventListener('copy', function(e){
             var new_line_word = "\r\n";
         }
 
-        //オプションで選択した取得条件に合わせてコピーするものを変える
-        if (checkCopy == "urlOnly") {
-            e.clipboardData.setData("text/plain", document.URL);
-        } else if (checkCopy == "titleOnly") {
-            e.clipboardData.setData("text/plain", document.title);
+        // 全タブ情報取得
+        if (isAllTags) {
+            var setData = "";
+            if (checkCopy == "urlOnly") {
+                for (var i = 0; i < titleUrls.length; i++) {
+                    setData += titleUrls[i].url + new_line_word;
+                }
+            } else if (checkCopy == "titleOnly") {
+                for (var i = 0; i < titleUrls.length; i++) {
+                    setData += titleUrls[i].title + new_line_word;
+                }
+            } else {
+                for (var i = 0; i < titleUrls.length; i++) {
+                    setData += titleUrls[i].title + new_line_word + titleUrls[i].url + new_line_word + new_line_word;
+                }
+            }
+            e.clipboardData.setData("text/plain", setData);
+
+            //正常に全てのタブ情報がコピーされない場合があるため、
+            //ユーザビリティ向上のため、正常動作時にアラートを出してユーザに知らせる
+            alert("copied all tabs");
+
         } else {
-            e.clipboardData.setData("text/plain", document.title + new_line_word + document.URL);
+            //オプションで選択した取得条件に合わせてコピーするものを変える
+            if (checkCopy == "urlOnly") {
+                e.clipboardData.setData("text/plain", document.URL);
+            } else if (checkCopy == "titleOnly") {
+                e.clipboardData.setData("text/plain", document.title);
+            } else {
+                e.clipboardData.setData("text/plain", document.title + new_line_word + document.URL);
+            }
         }
 
         e.preventDefault();
     }
+    isAllTags = false;
 });
