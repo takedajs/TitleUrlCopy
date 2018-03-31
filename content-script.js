@@ -1,12 +1,21 @@
 
 window.setInterval(getCheckCopy,1000);
+window.setInterval(getCheckAllTag,1000);
 window.setInterval(getTitleUrls,1000);
 
 var checkCopy = "";
-//オプションで設定した情報を取得
+//オプションで設定したコピーする情報を取得
 function getCheckCopy(){
     browser.storage.local.get('checkCopy', function(res) {
         checkCopy = res.checkCopy;
+    });
+}
+
+var checkAllTag = "";
+//オプションで設定した全タブ取得有無の情報を取得
+function getCheckAllTag(){
+    browser.storage.local.get('checkAllTag', function(res) {
+        checkAllTag = res.checkAllTag;
     });
 }
 
@@ -54,7 +63,7 @@ document.addEventListener('copy', function(e){
         }
 
         // 全タブ情報取得
-        if (isAllTags) {
+        if (isAllTags && checkAllTag == "allTagOn") {
             var setData = "";
             if (checkCopy == "urlOnly") {
                 for (var i = 0; i < titleUrls.length; i++) {

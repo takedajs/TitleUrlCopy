@@ -1,7 +1,6 @@
-var titleUrls = [];
-
 // 全タブのタイトルとURLをストレージに保存する
 function setTitleUrls(tabs) {
+    var titleUrls = [];
     for (var i = 0; i < tabs.length; i++){
         titleUrls[i] = {
             "title": tabs[i].title,
@@ -13,7 +12,6 @@ function setTitleUrls(tabs) {
     browser.storage.local.set({
         'titleUrls': titleUrls
     });
-
 }
 
 window.setInterval(
