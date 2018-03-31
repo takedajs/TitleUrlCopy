@@ -9,7 +9,8 @@
   },
 
   "permissions": [
-    "storage"
+    "storage",
+    "tabs"
   ],
 
   "options_ui": {
@@ -20,5 +21,9 @@
   "content_scripts": [{
       "matches": ["<all_urls>"],
       "js": ["content-script.js"]
-  }]
+  }],
+
+  "background": {
+    "scripts": ["background.js"]
+  }
 }
