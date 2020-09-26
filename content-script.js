@@ -27,7 +27,7 @@ function getTitleUrls() {
     });
 }
 
-document.onkeydown = keyDown;
+document.addEventListener("keydown", keyDown);
 var isAllTags = false;
 
 function keyDown(e) {
